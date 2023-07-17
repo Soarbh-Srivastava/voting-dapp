@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web3 Metamask Login</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/welcome.css">
+</head>
+<body class="flex w-screen h-screen justify-center items-center">
+  <div class="title">Welcome to VoteSphere</div>
+  <div class="flex-col space-y-2 justify-center items-center">
+    <button id='loginButton' class="mx-auto rounded-md p-2  text-white" style="width: 200px;">
+      Login with MetaMask
+    </button>
+  </div>
+  <div class="userWallet">
+    <p id='userWallet' class='text-lg text-gray-600 my-2'>User's wallet address will appear here</p>
+  </div>
+
+  <script>
+    window.userWalletAddress = null;
+    const loginButton = document.getElementById('loginButton');
+    const userWallet = document.getElementById('userWallet');
+
+    function toggleButton() {
+      if (!window.ethereum) {
+        loginButton.innerText = 'MetaMask is not installed';
+        loginButton.classList.remove('bg-purple-500', 'text-white');
+        loginButton.classList.add('bg-gray-500', 'text-gray-100', 'cursor-not-allowed');
+        return false;
+      }
+
+      loginButton.addEventListener('click', loginWithMetaMask);
+    }
+
+    async function loginWithMetaMask() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+          console.error(e.message);
+          return;
+        });
+
+      if (!accounts) { return; }
+
+      window.userWalletAddress = accounts[0];
+      userWallet.innerText = `Logged in with MetaMask: ${window.userWalletAddress}`;
+      loginButton.innerText = 'Logged in with MetaMask';
+
+      // Redirect to dashboard.html after a 5-second delay
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 3000); // 5000 milliseconds = 5 seconds
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleButton();
+    });
+  </script>
+</body>
+</html>

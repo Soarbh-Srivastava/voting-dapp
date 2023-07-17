@@ -1,0 +1,21 @@
+h1 {
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+}
+
+.header h1 {
+  flex: 1;
+}
+
+.header button {
+  margin-left: 10px;
+}
+.btn-primary{
+  margin-bottom: 40px;
+}
