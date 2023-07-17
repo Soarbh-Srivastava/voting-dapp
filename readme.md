@@ -139,4 +139,11 @@ Try the above commands in your node console and you should see the vote count in
 
 ## Step 3 :
 
-Now Everything is setup you just need to Replace contract address and abi in index.js file and u are ready to go live .
+Now Everything is setup you just need to Replace contract address and abi in index.js file and u are ready to go live.
+
+
+<!-- add my credit info -->
+
+## Developed By:
+
+Soarbh Srivastava.
