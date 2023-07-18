@@ -1,63 +1,227 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Web3 Metamask Login</title>
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/welcome.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="table.css">
+  <title>Document</title>
 </head>
-<body class="flex w-screen h-screen justify-center items-center">
-  <div class="title">Welcome to VoteSphere</div>
-  <div class="flex-col space-y-2 justify-center items-center">
-    <button id='loginButton' class="mx-auto rounded-md p-2  text-white" style="width: 200px;">
-      Login with MetaMask
-    </button>
+<body>
+   <div>
+  <div class="wrapper rounded">
+    <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start">
+       <a class="navbar-brand" href="#">
+          VoteSphere
+          <p class="text-muted pl-1">Vote anonymous for your favorite celebrity</p>
+       </a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button> 
+       <div class="collapse navbar-collapse" id="navbarNav">
+         <button class="btn btn-danger" style="width: 200px; 
+         margin-left: auto;" id="logoutButton" onclick=""  >Logout Wallet</button> 
+       </div>
+    </nav>
+    <div class="row mt-2 pt-2">
+       <div class="col-md-6" id="income">
+          <div class="d-flex justify-content-start align-items-center">
+             <p class="fa fa-long-arrow-down"></p>
+             <p class="text mx-3">Soarbh</p>
+             <p class="text-white ml-4 money" ></p>
+          </div>
+       </div>
+       <div class="col-md-6">
+          <div class="d-flex justify-content-md-end align-items-center">
+             <div class="fa fa-long-arrow-up"></div>
+             <div class="text mx-3">Anurag</div>
+             <div class="text-white ml-4 money"></div>
+          </div>
+       </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+       <ul class="nav nav-tabs w-75">
+          <li class="nav-item"> <a class="nav-link active" href="#history">Candidates</a> </li>
+
+       </ul>
+       <ul class="navbar-nav ml-lg-auto">
+         <li class="nav-item "> <a href="#"><span class="fa fa-search"></span></a> <input type="search" class="dark" placeholder="Search"> </li>
+      </ul>
+    </div>
+    <div class="table-responsive mt-3">
+       <table class="table table-dark table-borderless">
+          <thead>
+             <tr>
+                <th scope="col">Candidate Name</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Discription</th>
+                <th scope="col" class="text-right">Votes</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr>
+                <td scope="row"> <span></span>Soarbh</td>
+                <td><img class="img1" src="Image/img1.jpeg" alt=""></td>
+                <td class="text-muted">Crypto And Blockchian</td>
+                <td class="d-flex justify-content-end align-items-center" id="candidate-1"></td>
+             </tr>
+             <tr>
+                <td scope="row">Anurag</td>
+                <td><img class="img2" src="Image/pngtree-dogecoin-on-a-transparent-background-png-image_3246813.jpg" alt=""></td>
+                <td class="text-muted">NFTs and DeFI</td>
+                <td class="d-flex justify-content-end align-items-center" id="candidate-2"></td>
+             </tr>
+       </table>
+       <div>
+         <input type="text" id="candidate" /><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
+       </div>
+    </div>
   </div>
-  <div class="userWallet">
-    <p id='userWallet' class='text-lg text-gray-600 my-2'>User's wallet address will appear here</p>
+  <div class="footer" style="margin-top: 50px;">
+   <p class="text-gray-600 text-sm" style="display: flex;justify-content: center;align-items: center;">Made with ❤️ by &nbsp; <a style="color: red;" 
+     href="https://github.com/Soarbh-Srivastava/voting-dapp"target="_blank">Soarbh-Srivastava</a></p>
+     <p class="text-gray-600 text-sm" style="display: flex;justify-content: center;align-items: center;">View complete <a style="color: red;"  href="https://soarbh-srivastava.gitbook.io/voting-dapp-votesphere" target="_blank">&nbsp; DOCS</a></p>
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="./index.js"></script>
+
+<script>
+  const userWallet = document.getElementById('userWallet');
+  const logoutButton = document.getElementById('logoutButton');
+
+  function initializeDashboard() {
+    // Your existing initializeDashboard code here
+  }
+
+  function logoutWithMetaMask() {
+    // Clear the user's wallet address
+    window.ethereum.selectedAddress = null;
+    // Redirect back to the index page (index.html)
+    window.location.href = 'index.html';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initializeDashboard();
+
+    // Add event listener to the Logout button
+    logoutButton.addEventListener('click', logoutWithMetaMask);
+  });
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="table.css">
+  <title>Document</title>
+</head>
+<body>
+   <div>
+  <div class="wrapper rounded">
+    <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start">
+       <a class="navbar-brand" href="#">
+          VoteSphere
+          <p class="text-muted pl-1">Vote anonymous for your favorite celebrity</p>
+       </a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button> 
+       <div class="collapse navbar-collapse" id="navbarNav">
+         <button class="btn btn-danger" style="width: 200px; 
+         margin-left: auto;" id="logoutButton" onclick=""  >Logout Wallet</button> 
+       </div>
+    </nav>
+    <div class="row mt-2 pt-2">
+       <div class="col-md-6" id="income">
+          <div class="d-flex justify-content-start align-items-center">
+             <p class="fa fa-long-arrow-down"></p>
+             <p class="text mx-3">Soarbh</p>
+             <p class="text-white ml-4 money" ></p>
+          </div>
+       </div>
+       <div class="col-md-6">
+          <div class="d-flex justify-content-md-end align-items-center">
+             <div class="fa fa-long-arrow-up"></div>
+             <div class="text mx-3">Anurag</div>
+             <div class="text-white ml-4 money"></div>
+          </div>
+       </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+       <ul class="nav nav-tabs w-75">
+          <li class="nav-item"> <a class="nav-link active" href="#history">Candidates</a> </li>
+
+       </ul>
+       <ul class="navbar-nav ml-lg-auto">
+         <li class="nav-item "> <a href="#"><span class="fa fa-search"></span></a> <input type="search" class="dark" placeholder="Search"> </li>
+      </ul>
+    </div>
+    <div class="table-responsive mt-3">
+       <table class="table table-dark table-borderless">
+          <thead>
+             <tr>
+                <th scope="col">Candidate Name</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Discription</th>
+                <th scope="col" class="text-right">Votes</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr>
+                <td scope="row"> <span></span>Soarbh</td>
+                <td><img class="img1" src="Image/img1.jpeg" alt=""></td>
+                <td class="text-muted">Crypto And Blockchian</td>
+                <td class="d-flex justify-content-end align-items-center" id="candidate-1"></td>
+             </tr>
+             <tr>
+                <td scope="row">Anurag</td>
+                <td><img class="img2" src="Image/pngtree-dogecoin-on-a-transparent-background-png-image_3246813.jpg" alt=""></td>
+                <td class="text-muted">NFTs and DeFI</td>
+                <td class="d-flex justify-content-end align-items-center" id="candidate-2"></td>
+             </tr>
+       </table>
+       <div>
+         <input type="text" id="candidate" /><a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
+       </div>
+    </div>
   </div>
-  <div class="footer" style="margin-top: 100px;">
-    <p class="text-gray-600 text-sm">Made with ❤️ by &nbsp; <a style="color: red;" 
-      href="https://github.com/Soarbh-Srivastava/voting-dapp"target="_blank">Soarbh-Srivastava</a></p>
-      <p class="text-gray-600 text-sm" style="display: flex;justify-content: center;align-items: center;">View complete <a style="color: red;"  href="https://soarbh-srivastava.gitbook.io/voting-dapp-votesphere" target="_blank">&nbsp; DOCS</a></p>
-  </div>
-  <script>
-    window.userWalletAddress = null;
-    const loginButton = document.getElementById('loginButton');
-    const userWallet = document.getElementById('userWallet');
+  <div class="footer" style="margin-top: 50px;">
+   <p class="text-gray-600 text-sm" style="display: flex;justify-content: center;align-items: center;">Made with ❤️ by &nbsp; <a style="color: red;" 
+     href="https://github.com/Soarbh-Srivastava/voting-dapp"target="_blank">Soarbh-Srivastava</a></p>
+     <p class="text-gray-600 text-sm" style="display: flex;justify-content: center;align-items: center;">View complete <a style="color: red;"  href="https://soarbh-srivastava.gitbook.io/voting-dapp-votesphere" target="_blank">&nbsp; DOCS</a></p>
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="./index.js"></script>
 
-    function toggleButton() {
-      if (!window.ethereum) {
-        loginButton.innerText = 'MetaMask is not installed';
-        loginButton.classList.remove('bg-purple-500', 'text-white');
-        loginButton.classList.add('bg-gray-500', 'text-gray-100', 'cursor-not-allowed');
-        return false;
-      }
+<script>
+  const userWallet = document.getElementById('userWallet');
+  const logoutButton = document.getElementById('logoutButton');
 
-      loginButton.addEventListener('click', loginWithMetaMask);
-    }
+  function initializeDashboard() {
+    // Your existing initializeDashboard code here
+  }
 
-    async function loginWithMetaMask() {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-        .catch((e) => {
-          console.error(e.message);
-          return;
-        });
+  function logoutWithMetaMask() {
+    // Clear the user's wallet address
+    window.ethereum.selectedAddress = null;
+    // Redirect back to the index page (index.html)
+    window.location.href = 'index.html';
+  }
 
-      if (!accounts) { return; }
+  window.addEventListener('DOMContentLoaded', () => {
+    initializeDashboard();
 
-      window.userWalletAddress = accounts[0];
-      userWallet.innerText = `Logged in with MetaMask: ${window.userWalletAddress}`;
-      loginButton.innerText = 'Logged in with MetaMask';
-
-      // Redirect to dashboard.html after a 5-second delay
-      setTimeout(() => {
-        window.location.href = 'vote.html';
-      }, 3000); // 5000 milliseconds = 5 seconds
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      toggleButton();
-    });
-  </script>
+    // Add event listener to the Logout button
+    logoutButton.addEventListener('click', logoutWithMetaMask);
+  });
+</script>
 </body>
 </html>
