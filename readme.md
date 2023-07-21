@@ -1,3 +1,4 @@
+Drop A ⭐ if it was helpfull
 
 # **VoteSphere A Voting Dapp**
 **Complete guide and documentation with code implemation** : [voting-dapp-votesphere](https://soarbh-srivastava.gitbook.io/voting-dapp-votesphere)
