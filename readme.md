@@ -148,4 +148,4 @@ Now Everything is setup you just need to Replace contract address and abi in ind
 
 ## Developed By:
 
-Soarbh Srivastava.
+Soarbh Srivastava and Anurag Jangid
